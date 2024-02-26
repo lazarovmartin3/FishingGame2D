@@ -1,4 +1,3 @@
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -36,7 +35,7 @@ public class GamePlayUI : MonoBehaviour
 
     private void BackToMainMenu()
     {
-        NetworkManager.Singleton?.Shutdown();
+        //NetworkManager.Singleton?.Shutdown();
         SceneManager.LoadScene(0);
     }
 }

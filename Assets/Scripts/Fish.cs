@@ -1,7 +1,7 @@
-using Unity.Netcode;
+//using Unity.Netcode;
 using UnityEngine;
 
-public class Fish : NetworkBehaviour
+public class Fish : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3f; // Speed of the fish's movement
     [SerializeField] private float changeDirectionInterval = 2f; // Interval for changing direction
@@ -14,6 +14,8 @@ public class Fish : NetworkBehaviour
 
     public enum FishType
     { Common, Rare };
+
+    public int id;
 
     [SerializeField] private FishType fishType;
     private float commonHookProbability = 70f;
@@ -34,7 +36,7 @@ public class Fish : NetworkBehaviour
 
     private void Update()
     {
-        if (isHooked && hook)
+        /*if (isHooked && hook)
         {
             transform.position = hook.position;
         }
@@ -64,7 +66,12 @@ public class Fish : NetworkBehaviour
                 randomDirection = GetRandomDirection();
                 FlipOrientation(randomDirection);
             }
-        }
+        }*/
+    }
+
+    public void UpdatePosition(Vector2 position)
+    {
+        transform.position = position;
     }
 
     // Function to get a random direction
@@ -96,7 +103,7 @@ public class Fish : NetworkBehaviour
         // Generate a random number between 0 and 1
         float randomValue = Random.value;
         randomValue *= 100;
-        print("random value " + randomValue + " prob " + hookProbability);
+
         if (randomValue <= hookProbability)
         {
             return true;
@@ -124,12 +131,12 @@ public class Fish : NetworkBehaviour
         return fishType;
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void DestroyServerRpc()
-    {
-        GetComponent<NetworkObject>().Despawn();
-        Destroy(this.gameObject);
-    }
+    //[ServerRpc(RequireOwnership = false)]
+    //public void DestroyServerRpc()
+    //{
+    //    GetComponent<NetworkObject>().Despawn();
+    //    Destroy(this.gameObject);
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

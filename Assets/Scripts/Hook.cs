@@ -8,7 +8,7 @@ public class Hook : MonoBehaviour
     {
         if (hookedFish != null)
         {
-            hookedFish.GetComponent<Fish>().DestroyServerRpc();
+            //hookedFish.GetComponent<Fish>().DestroyServerRpc();
             hookedFish = null;
         }
     }
@@ -29,6 +29,7 @@ public class Hook : MonoBehaviour
         if (other.CompareTag("Fish"))
         {
             // Handle catching the fish
+            WebSocketManager.instance.CatchFish(other.gameObject.GetComponent<Fish>().id);
             if (hookedFish)
             {
                 hookedFish.GetComponent<Fish>().Escape();
